@@ -3,19 +3,15 @@ set shell := ["bash", "-uec"]
 default:
     @just --list
 
-fmt:
-    terraform fmt -recursive .
-    prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .
-    just --unstable --fmt
-
 e2e-test: e2e-test-destroy deploy test-event
 
 e2e-test-destroy: clean destroy
 
+[working-directory: 'src']
 zip:
-    cd src && corepack enable
-    cd src && pnpm install
-    cd src && zip --quiet -r ../lambda_function.zip .
+    corepack enable
+    pnpm install
+    zip --quiet -r ../lambda_function.zip .
 
 _tf_init:
     terraform init
@@ -49,8 +45,7 @@ test-event:
     cat response.json || true
     rm -f response.json || true
 
-test-rule:
-    @region=$(grep -A 2 'provider "aws"' providers.tf | grep region | cut -d'"' -f2) && \
-    aws events put-events \
-        --region $region \
-        --entries '[{"Source": "test.event", "DetailType": "Test Event", "Detail": "{}", "EventBusName": "default"}]'
+fmt:
+    terraform fmt -recursive .
+    prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .
+    just --unstable --fmt
