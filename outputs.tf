@@ -5,3 +5,7 @@ output "lambda_function_name" {
 output "sqs_queue_url" {
   value = aws_sqs_queue.main_queue.url
 }
+
+output "aws_region" {
+  value = data.aws_region.current.name
+}
