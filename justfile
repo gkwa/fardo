@@ -34,7 +34,7 @@ test-event:
     #!/usr/bin/env bash
     set -x
     lambda_function=$(terraform output -raw lambda_function_name)
-    region=$(terraform output -raw aws_region) 
+    region=$(terraform output -raw aws_region)
     aws lambda invoke \
         --region $region \
         --function-name $lambda_function \
