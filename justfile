@@ -9,8 +9,8 @@ fmt:
     just --unstable --fmt
 
 zip:
-    cd src && npm install
-    cd src && zip -r ../lambda_function.zip .
+    cd src && pnpm install
+    cd src && zip --quiet -r ../lambda_function.zip .
 
 init: zip
     terraform init
