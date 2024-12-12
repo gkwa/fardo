@@ -1,0 +1,8 @@
+.terraform
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+tfplan
+lambda_function.zip
+node_modules/
+

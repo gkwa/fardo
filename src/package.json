@@ -1,0 +1,9 @@
+{
+  "name": "sqs-processor",
+  "version": "1.0.0",
+  "dependencies": {
+    "aws-sdk": "^2.1569.0",
+    "ms": "^2.1.3",
+    "node-fetch": "^2.7.0"
+  }
+}
