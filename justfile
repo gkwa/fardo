@@ -1,37 +1,34 @@
 set shell := ["bash", "-uec"]
 
-default:
-    @just --list
+[group('maint')]
+@default:
+    just --list
 
-e2e-test: e2e-test-destroy deploy test-event
+[group('setup')]
+setup: plan
+    terraform apply tfplan
 
-e2e-test-destroy: clean destroy
+[group('setup')]
+@_tf_init:
+    terraform init
 
+[group('setup')]
+@plan: zip
+    terraform plan -out=tfplan
+
+[group('setup')]
 [working-directory: 'src']
-zip:
+@zip:
     corepack enable
     COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install
     zip --quiet -r ../lambda_function.zip .
 
-_tf_init:
-    terraform init
+[group('test')]
+e2e: clean teardown setup test
 
-taint:
-    terraform taint aws_lambda_function.sqs_processor
-
-plan: zip
-    terraform plan -out=tfplan
-
-deploy: plan
-    terraform apply tfplan
-
-destroy: _tf_init
-    terraform destroy -auto-approve
-
-clean:
-    rm -rf .terraform tfplan lambda_function.zip src/node_modules
-
-test-event:
+[group('test')]
+@test:
+    #!/usr/bin/env bash
     lambda_function=$(terraform output -raw lambda_function_name)
     region=$(terraform output -raw aws_region)
     aws lambda invoke \
@@ -43,7 +40,20 @@ test-event:
     cat response.json || true
     rm -f response.json || true
 
-fmt:
+[group('teardown')]
+teardown: _tf_init
+    terraform teardown -auto-approve
+
+[group('teardown')]
+@taint:
+    terraform taint aws_lambda_function.sqs_processor
+
+[group('teardown')]
+@clean:
+    rm -rf .terraform tfplan lambda_function.zip src/node_modules
+
+[group('maint')]
+@fmt:
     terraform fmt -recursive .
     prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .
     just --unstable --fmt
