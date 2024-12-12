@@ -12,19 +12,19 @@ zip:
     cd src && npm install
     cd src && zip --quiet -r ../lambda_function.zip .
 
-init: zip
+_tf_init:
     terraform init
 
 taint:
     terraform taint aws_lambda_function.sqs_processor
 
-plan: init
+plan: zip
     terraform plan -out=tfplan
 
 deploy: plan
     terraform apply tfplan
 
-destroy: init
+destroy: _tf_init
     terraform destroy -auto-approve
 
 clean:
