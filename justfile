@@ -9,7 +9,7 @@ fmt:
     just --unstable --fmt
 
 zip:
-    cd src && pnpm install
+    cd src && npm install
     cd src && zip --quiet -r ../lambda_function.zip .
 
 init: zip
