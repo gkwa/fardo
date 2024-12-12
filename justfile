@@ -5,15 +5,15 @@ set shell := ["bash", "-uec"]
     just --list
 
 [group('setup')]
-setup: plan
+setup: zip plan
     terraform apply tfplan
 
 [group('setup')]
 @_tf_init:
-    terraform init
+    terraform init -upgrade
 
 [group('setup')]
-@plan: zip
+@plan: _tf_init
     terraform plan -out=tfplan
 
 [group('setup')]
@@ -27,7 +27,7 @@ setup: plan
 e2e: clean teardown setup test
 
 [group('test')]
-@test:
+@test: setup
     #!/usr/bin/env bash
     lambda_function=$(terraform output -raw lambda_function_name)
     region=$(terraform output -raw aws_region)
