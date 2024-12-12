@@ -10,7 +10,7 @@ e2e-test-destroy: clean destroy
 [working-directory: 'src']
 zip:
     corepack enable
-    pnpm install
+    COREPACK_ENABLE_DOWNLOAD_PROMPT=0 pnpm install
     zip --quiet -r ../lambda_function.zip .
 
 _tf_init:
