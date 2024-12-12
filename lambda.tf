@@ -12,14 +12,14 @@ resource "aws_lambda_function" "sqs_processor" {
   }
 }
 
-resource "aws_cloudwatch_event_rule" "every_ten_minutes" {
-  name                = "every-ten-minutes"
-  description         = "Triggers every minute (debug)"
-  schedule_expression = "rate(10 minutes)"
+resource "aws_cloudwatch_event_rule" "sqs_queue_check" {
+  name                = "check-sqs-queue"
+  description         = "Triggers every 5m"
+  schedule_expression = "rate(5 minutes)"
 }
 
 resource "aws_cloudwatch_event_target" "check_sqs_queue" {
-  rule      = aws_cloudwatch_event_rule.every_ten_minutes.name
+  rule      = aws_cloudwatch_event_rule.sqs_queue_check.name
   target_id = "CheckSQSQueue"
   arn       = aws_lambda_function.sqs_processor.arn
 }
@@ -29,5 +29,5 @@ resource "aws_lambda_permission" "allow_eventbridge" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.sqs_processor.function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.every_ten_minutes.arn
+  source_arn    = aws_cloudwatch_event_rule.sqs_queue_check.arn
 }
