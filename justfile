@@ -24,7 +24,7 @@ plan: init
 deploy: plan
     terraform apply tfplan
 
-destroy:
+destroy: init
     terraform destroy -auto-approve
 
 clean:
