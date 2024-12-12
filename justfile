@@ -8,7 +8,12 @@ fmt:
     prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .
     just --unstable --fmt
 
+e2e-test: e2e-test-destroy deploy test-event
+
+e2e-test-destroy: clean destroy
+
 zip:
+    cd src && corepack enable
     cd src && pnpm install
     cd src && zip --quiet -r ../lambda_function.zip .
 
