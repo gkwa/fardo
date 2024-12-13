@@ -31,18 +31,14 @@ e2e: clean teardown setup test
     #!/usr/bin/env bash
     lambda_function=$(terraform output -raw lambda_function_name)
     region=$(terraform output -raw aws_region)
-    aws lambda invoke \
-        --region $region \
-        --function-name $lambda_function \
-        --payload '{}' \
-        --cli-binary-format raw-in-base64-out \
-        response.json || true
+    aws lambda invoke --region $region --function-name $lambda_function \
+        --payload '{}' --cli-binary-format raw-in-base64-out response.json || true
     cat response.json || true
     rm -f response.json || true
 
 [group('teardown')]
 teardown: _tf_init
-    terraform teardown -auto-approve
+    terraform destroy -auto-approve
 
 [group('teardown')]
 @taint:
