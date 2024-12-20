@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       aws-sdk:
-        specifier: ^2.1569.0
-        version: 2.1692.0
+        specifier: 2.1569.0
+        version: 2.1569.0
       axios:
-        specifier: ^1.6.2
-        version: 1.7.9
+        specifier: 1.6.2
+        version: 1.6.2
       ms:
-        specifier: ^2.1.3
+        specifier: 2.1.3
         version: 2.1.3
 
 packages:
@@ -27,12 +27,12 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  aws-sdk@2.1692.0:
-    resolution: {integrity: sha512-x511uiJ/57FIsbgUe5csJ13k3uzu25uWQE+XqfBis/sB0SFoiElJWXRkgEAUh0U6n40eT3ay5Ue4oPkRMu1LYw==}
+  aws-sdk@2.1569.0:
+    resolution: {integrity: sha512-9puKjesHKOjAYPqFurW/9nv3qhQ+STu3bVa5PN158SCeZPE6NsxZIWnHLglJvKU7N8UXJo1aJHmKDUGrsS7rXw==}
     engines: {node: '>= 10.0.0'}
 
-  axios@1.7.9:
-    resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
+  axios@1.6.2:
+    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==}
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -218,7 +218,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
-  aws-sdk@2.1692.0:
+  aws-sdk@2.1569.0:
     dependencies:
       buffer: 4.9.2
       events: 1.1.1
@@ -231,7 +231,7 @@ snapshots:
       uuid: 8.0.0
       xml2js: 0.6.2
 
-  axios@1.7.9:
+  axios@1.6.2:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.1
